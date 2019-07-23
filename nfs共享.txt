@@ -1,0 +1,18 @@
+安装软件
+yum -y install nfs-utils
+
+配置文件
+vim /etc/exports
+挂载点    ip地址/子网掩码(权限,no_root_squash)
+/         192.168.0.0/24(rw,no_root_squash)
+
+systemctl restart nfs-server
+
+showmount -e ip    查看服务器共享的目录
+
+
+客户端
+
+mount  ip:/目录    /
+
+如果报错 clnt_create: RPC: Program not registered 则在服务端输入 rpc.mountd
