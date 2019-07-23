@@ -1,7 +1,7 @@
-¸øÀúÊ·¼ÇÂ¼Ìí¼Ó²Ù×÷Ê±¼ä ºÍÓÃ»§
+ç»™å†å²è®°å½•æ·»åŠ æ“ä½œæ—¶é—´ å’Œç”¨æˆ·
 
 export HISTTIMEFORMAT="%Y-%m-%d %H:%M:%S  `whoami`"
-È»ºóÔËĞĞsource /etc/profileÃüÁî¼´¿É£¬×¢ÒâÒıºÅÖĞµÄ¿Õ¸ñ
+ç„¶åè¿è¡Œsource /etc/profileå‘½ä»¤å³å¯ï¼Œæ³¨æ„å¼•å·ä¸­çš„ç©ºæ ¼
 
 history
  USER_IP=`who -u am i 2>/dev/null| awk '{print $NF}'|sed -e 's/[()]//g'`
@@ -22,3 +22,11 @@ history
  DT=`date "+%Y-%m-%d,%H:%M:%S"` 
  export HISTFILE="/tmp/views/${LOGNAME}/${USER_IP}-views.$DT"
  chmod 600 /tmp/views/${LOGNAME}/operate_log 2>/dev/null
+ 
+ 
+ åˆ†åŒºå·¥å…·ï¼š
+parted /dev/sdb mklabel gpt yes
+
+parted /dev/sdb mkpart primary 0 5G
+
+parted /dev/sdb p
