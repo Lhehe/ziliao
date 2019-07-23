@@ -1,0 +1,24 @@
+给历史记录添加操作时间 和用户
+
+export HISTTIMEFORMAT="%Y-%m-%d %H:%M:%S  `whoami`"
+然后运行source /etc/profile命令即可，注意引号中的空格
+
+history
+ USER_IP=`who -u am i 2>/dev/null| awk '{print $NF}'|sed -e 's/[()]//g'`
+ if [ "$USER_IP" =  "" ]
+ then
+ USER_IP=`hostname`
+ fi
+ if [ ! -d /tmp/views ]
+ then
+ mkdir /tmp/views chmod 777 /tmp/views
+ fi
+ if [ ! -d /tmp/views/${LOGNAME} ]
+ then
+ mkdir /tmp/views/${LOGNAME}
+ chmod 300 /tmp/views/${LOGNAME}
+ fi
+ export HISTSIZE=4096
+ DT=`date "+%Y-%m-%d,%H:%M:%S"` 
+ export HISTFILE="/tmp/views/${LOGNAME}/${USER_IP}-views.$DT"
+ chmod 600 /tmp/views/${LOGNAME}/operate_log 2>/dev/null
