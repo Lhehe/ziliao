@@ -1,0 +1,94 @@
+服务端：
+1.关闭防火墙
+selinux 
+  setsebool -a | grep samba_exp
+  setsebool -P samba_export_all_rw=on
+
+2.安装samba服务器：
+  yum -y install samba-*
+
+3.共享用户配置
+ useradd -M lin
+为用户lin创建smb共享密码
+
+ smbpasswd -a lin
+将lin用户映射为share用户：
+
+ echo 'lin = share' > /etc/samba/smbusers
+在全局变量中添加如下内容：
+
+[root@linfan ~]# vi /etc/samba/smb.conf
+# See smb.conf.example for a more detailed config file or
+# read the smb.conf manpage.
+# Run 'testparm' to verify the config is correct after
+# you modified it.
+
+[global]
+        workgroup = SAMBA
+        security = user
+        username map = /etc/samba/smbusers  //在此添加 
+
+4. 创建一个共享目录lin
+[root@linfan ~]# mkdir -p /opt/lin/
+[root@linfan ~]# chown -R lin.lin /opt/lin/
+
+5.配置共享
+[root@linfan ~]# cat >> /etc/samba/smb.conf <<EOF
+> [lin]       //共享目录名称
+> comment = lin   //描述
+> path = /opt/lin   //共享目录的路径
+> browseable = yes   //设置为可见
+> guest ok = yes   //设置允许匿名访问
+> writable = yes   //设置可写
+> write list = share   //只有share用户拥有读权限
+> public = yes  //设置匿名可访问
+> EOF
+[root@linfan ~]# testparm   //测试是否正确
+[root@linfan ~]# tail -8 /etc/samba/smb.conf
+[lin]
+comment = lin
+path = /opt/lin
+browseable = yes
+guest ok = yes
+writable = yes
+write list = share 
+public = yes
+
+
+启动smb服务
+
+[root@linfan ~]# systemctl start smb
+重启smb服务
+
+[root@linfan ~]# systemctl restart smb
+重新加载smb服务
+
+[root@linfan ~]# systemctl reload smb
+设置smb开机自启动
+
+[root@linfan ~]# systemctl enable smb
+
+在客户端操作
+
+1.查看smb服务器共享了哪些资源
+[root@linfan ~]# smbclient -L 192.168.24.248 -U share
+
+2.创建挂载目录
+[root@linfan ~]# mkdir -p /opt/smb/
+
+3.将smb服务器上的lin挂载到本地
+[root@linfan ~]# mount -t cifs //192.168.24.248/lin /opt/smb -o username=share,password=1
+
+4.进入客户端共享目录创建新文件
+[root@linfan opt]# cd /opt/smb
+
+[root@linfan smb]# mkdir l
+[root@linfan smb]# touch k
+[root@linfan smb]# ls
+k  l
+
+5.在服务端验证
+[root@linfan ~]# cd /opt/lin
+[root@linfan lin]# ls
+k  l
+
