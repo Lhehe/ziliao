@@ -1,57 +1,57 @@
-python Ô´Âë°üÏÂÔØ
+python æºç åŒ…ä¸‹è½½
 https://www.python.org/ftp/python/
 
-ÊµÑéÄ¿µÄ£º
-Ê¹ÓÃÃÜÂëÅúÁ¿¡¢¶à²¢·¢Ô¶³ÌÆäËûÖ÷»ú
-Ê¹ÓÃÃÜÔ¿ÅúÁ¿¡¢¶à²¢·¢Ô¶³ÌÆäËûÖ÷»ú
-ÅúÁ¿¡¢¶à²¢·¢¿½±´Êý¾Ýµ½ÆäËûÖ÷»ú
-ÅúÁ¿¡¢¶à²¢·¢´ÓÆäËûÖ÷»úÏÂÔØÊý¾Ýµ½±¾»ú
-ÅúÁ¿¡¢¶à²¢·¢É±ËÀÆäËûÖ÷»úµÄ½ø³Ì
+å®žéªŒç›®çš„ï¼š
+ä½¿ç”¨å¯†ç æ‰¹é‡ã€å¤šå¹¶å‘è¿œç¨‹å…¶ä»–ä¸»æœº
+ä½¿ç”¨å¯†é’¥æ‰¹é‡ã€å¤šå¹¶å‘è¿œç¨‹å…¶ä»–ä¸»æœº
+æ‰¹é‡ã€å¤šå¹¶å‘æ‹·è´æ•°æ®åˆ°å…¶ä»–ä¸»æœº
+æ‰¹é‡ã€å¤šå¹¶å‘ä»Žå…¶ä»–ä¸»æœºä¸‹è½½æ•°æ®åˆ°æœ¬æœº
+æ‰¹é‡ã€å¤šå¹¶å‘æ€æ­»å…¶ä»–ä¸»æœºçš„è¿›ç¨‹
 
 wget https//clsn.io/files/pssh/pssh-2.3.1.tar.gz
 tar -xf pssh-2.3.1.tar.gz
 cd pssh-2.3.1
 python setup.py install
 
-ÐèÒªµÄÇ°Ï·£º
+éœ€è¦çš„å‰æˆï¼š
 
-ÅäÖÃ±¾µØ/etc/hosts/½âÎöÎÄ¼þ
+é…ç½®æœ¬åœ°/etc/hosts/è§£æžæ–‡ä»¶
 ip  host1
 ip  host2
 
-´´½¨Ö÷»úÁÐ±íÎÄ¼þ vim /root/host.txt(Ã¿Ò»ÐÐÒ»¸öÓÃ»§Ãû¡¢ip»òÕßÓòÃû)
+åˆ›å»ºä¸»æœºåˆ—è¡¨æ–‡ä»¶ vim /root/host.txt(æ¯ä¸€è¡Œä¸€ä¸ªç”¨æˆ·åã€ipæˆ–è€…åŸŸå)
 .....
 root@host1
 root@host2
 
-pssh [Ñ¡Ïî] 
-- A Ê¹ÓÃÃÜÂëÔ¶³ÌÆäËûÖ÷»ú£¨Ä¬ÈÏÊ¹ÓÃÃÜÔ¿£©
-- i ½«Êä³öÏÔÊ¾ÔÚÆÁÄ»
-- H ÉèÖÃÐèÒªÁ¬½ÓµÄÖ÷»ú
-- h ÉèÖÃÖ÷»úÁÐ±íÎÄ¼þ
-- p ÉèÖÃ²¢·¢ÊýÁ¿
-- t ÉèÖÃ³¬Ê±Ê±¼ä
-- o dir ÉèÖÃ±ê×¼Êä³öÐÅÏ¢±£´æµÄÄ¿Â¼
-- e dir ÉèÖÃ´íÎóÊä³öÐÅÏ¢±£´æµÄÄ¿Â¼
-- x ´«µÝ²ÎÊý¸øssh     
+pssh [é€‰é¡¹] 
+- A ä½¿ç”¨å¯†ç è¿œç¨‹å…¶ä»–ä¸»æœºï¼ˆé»˜è®¤ä½¿ç”¨å¯†é’¥ï¼‰
+- i å°†è¾“å‡ºæ˜¾ç¤ºåœ¨å±å¹•
+- H è®¾ç½®éœ€è¦è¿žæŽ¥çš„ä¸»æœº
+- h è®¾ç½®ä¸»æœºåˆ—è¡¨æ–‡ä»¶
+- p è®¾ç½®å¹¶å‘æ•°é‡
+- t è®¾ç½®è¶…æ—¶æ—¶é—´
+- o dir è®¾ç½®æ ‡å‡†è¾“å‡ºä¿¡æ¯ä¿å­˜çš„ç›®å½•
+- e dir è®¾ç½®é”™è¯¯è¾“å‡ºä¿¡æ¯ä¿å­˜çš„ç›®å½•
+- x ä¼ é€’å‚æ•°ç»™ssh     
 
-Ê¹ÓÃÃÜÂëÔ¶³Ì¶àÌ¨Ö÷»úÖ´ÐÐÃüÁî£¬ÆÁÄ»ÏÔÊ¾±ê×¼ºÍ´íÎóÊä³öÐÅÏ¢
+ä½¿ç”¨å¯†ç è¿œç¨‹å¤šå°ä¸»æœºæ‰§è¡Œå‘½ä»¤ï¼Œå±å¹•æ˜¾ç¤ºæ ‡å‡†å’Œé”™è¯¯è¾“å‡ºä¿¡æ¯
 pssh - i - A - H 'host1 host2 ' - x '- o StrictHostKeyChecking=no' echo hello
 
-Ê¹ÓÃÃÜÂëÔ¶³Ì¶àÌ¨Ö÷»úÖ´ÐÐÃüÁî£¬²»ÏÔÊ¾±ê×¼ºÍ´íÎóÊä³öÐÅÏ¢£¬Í¨¹ý¶ÁÈ¡host.txt¶ÁÈ¡Ö÷»úÐÅÏ¢
+ä½¿ç”¨å¯†ç è¿œç¨‹å¤šå°ä¸»æœºæ‰§è¡Œå‘½ä»¤ï¼Œä¸æ˜¾ç¤ºæ ‡å‡†å’Œé”™è¯¯è¾“å‡ºä¿¡æ¯ï¼Œé€šè¿‡è¯»å–host.txtè¯»å–ä¸»æœºä¿¡æ¯
 pssh - A - h host.txt echo hello
 
 
-ÅúÁ¿¡¢¶à²¢·¢¿½±´Êý¾Ýµ½ÆäËûÖ÷»ú(µÝ¹é¿½±´¼Ó -r)
+æ‰¹é‡ã€å¤šå¹¶å‘æ‹·è´æ•°æ®åˆ°å…¶ä»–ä¸»æœº(é€’å½’æ‹·è´åŠ  -r)
 man pscp.pssh 
 pscp.pssh -h host.txt /etc/hosts  /tmp
  
 
-ÅúÁ¿¡¢¶à²¢·¢´ÓÆäËûÖ÷»úÏÂÔØÊý¾Ýµ½±¾»ú
+æ‰¹é‡ã€å¤šå¹¶å‘ä»Žå…¶ä»–ä¸»æœºä¸‹è½½æ•°æ®åˆ°æœ¬æœº
 man pslurp
 pslurp - h host.txt /etc/passwd /pass
 
 
-ÅúÁ¿¡¢¶à²¢·¢É±ËÀÆäËûÖ÷»úµÄ½ø³Ì
+æ‰¹é‡ã€å¤šå¹¶å‘æ€æ­»å…¶ä»–ä¸»æœºçš„è¿›ç¨‹æˆ–è€…è„šæœ¬(å¿…é¡»æ˜¯æœ‰æ‰§è¡Œæƒé™çš„è„šæœ¬)
 man pnuke
-pnuke -h host.txt test.sh ½«Ô¶³ÌÖ÷»úÉÏµÄtest.sh½Å±¾É±ËÀ
+pnuke -h host.txt test.sh å°†è¿œç¨‹ä¸»æœºä¸Šçš„test.shè„šæœ¬æ€æ­»
