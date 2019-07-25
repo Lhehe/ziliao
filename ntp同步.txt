@@ -1,0 +1,36 @@
+	流程：
+		1、部署一台NTP时间服务器
+		2、设置时间服务器上层与0.centos.pool.ntp.org同步
+		3、设置本地服务器层级数量为10
+		4、允许192.168.4.0/24网络的主机同步时间
+		5、客户端验证时间是否同步
+
+服务端装包
+  yum -y install chrony
+  rpm -ec chrony 查找文件
+
+修改配置文件
+  vim /etc/chrony.conf
+     server 0.centos.pool.ntp.org iburst    //server用户客户端指向上层NTP服务器
+     allow ip地址 //允许那个IP或网络访问NTP
+     #deny IP地址 //拒绝那个IP或网络访问NTP
+     local stratum 10 //设置NTP服务器的层数量 
+     .....
+
+启动ntp服务
+      systemctl restart chronyd
+防火墙
+     firewall-cmd --set-default-zone=trusetd
+
+客户端
+yum -y install chrony
+vim /etc/chrony.conf
+  server ip地址  iburst  //设置与哪台服务器同步数据
+
+date - s "hour:minute" 
+date 
+
+systemctl restart chronyd
+
+date(查看结果)
+  
