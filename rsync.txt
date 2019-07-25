@@ -28,21 +28,21 @@ inotifywait [选项] 目标文件
 检查安装结果： inotifywait --help
 
 
-开启监控任务，放入后台  
+开启监控任务，放入后台(服务端和客户端都要)  
 
 inotifywait -mrq -e create,modify,move,attrib,delete /opt &
 
 
 
-rsync+inotifywait 实时监控并且同步（需要免密验证）
+rsync+inotifywait 实时监控并且同步（服务端可以免密验证客户端）
 
 
-编写监控脚本
+编写监控脚本（服务端）
 vim /isync.sh
 #!/bin/bash
 FROM_DIR="目录a"
-RSYNC_CMD="rsync - az - - delete $FROM_DIR root@ip:目录b"
-while inotifywait - rqq - e modify,move,create,delete,attrib $FROM_DIR
+RSYNC_CMD="rsync -az --delete $FROM_DIR root@ip:目录b"
+while inotifywait -rqq -e modify,move,create,delete,attrib $FROM_DIR
 do
    $RSYNC_CMD
 done &
