@@ -1,0 +1,26 @@
+适用于两台 linux之间（两台机器相同的操作，不过要注意ip地址的填写）
+
+启用ip_gre 模块
+lsmod | grep ip_gre 
+modprode ip_gre
+modinfo ip_gre
+
+创建虚拟vpn隧道(10.10.10.0/24)
+
+ip tunnel add tun0 mode gre remote 对方ip  local 本机ip
+
+ip link set tun0 up 
+
+iplink show 
+
+
+为vpn配置隧道ip地址
+
+ip addr add 本地ip/掩码  peer 对方ip/掩码 dev tun0
+
+ip a s 
+
+关闭防火墙
+开启路由转发： echo 1 > /proc/sys/net/ipv4/ip_forward
+
+最后ping 测试连通性
