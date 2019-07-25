@@ -47,9 +47,9 @@ man pscp.pssh
 pscp.pssh -h host.txt /etc/hosts  /tmp
  
 
-批量、多并发从其他主机下载数据到本机
+批量、多并发从其他主机下载数据到本机(经本人多次测试 不管下载到本机的哪个目录 最终都是在/root下生成一个host1的目录存放着,有可能是版本问题)
 man pslurp
-pslurp - h host.txt /etc/passwd /pass
+pslurp - h host.txt /etc/passwd /
 
 
 批量、多并发杀死其他主机的进程或者脚本(必须是有执行权限的脚本)
