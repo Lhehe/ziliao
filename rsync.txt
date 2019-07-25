@@ -1,0 +1,59 @@
+rsync [选项]  本地目录a  本地目录b
+       -n 测试同步过程，不做任何修改
+       -a 同步目录
+       -v 显示详细信息
+       -z 传输过程中启用压缩/解压
+       --delete  目录a同步到目录b时，目录b下存在多余的文件将直接删除      
+
+
+rsync + ssh 同步
+查看远程主机/下有哪些子目录： rsync root@主机ip:/
+
+从远程主机下载/etc/passwd文件到当前目录 rsync root@ip:/etc/passwd  ./
+
+本地主机同步到远程主机上: rsync -a /etc root@ip:/opt
+
+
+
+使用inotifywait 工具监控同步
+
+inotifywait [选项] 目标文件
+            -m 持续监控（捕获一个时间后不退出）
+            -r 递归监控、包括子目录及文件
+            -q 减少屏幕输出信息
+            -e 指定监视的modify 、move 、 crate 、delete 、attrib 等事件类别
+
+安装包 http://www.rpmfind.net/linux/rpm2html/search.php?query=inotify-tools
+
+检查安装结果： inotifywait --help
+
+
+开启监控任务，放入后台  
+
+inotifywait -mrq -e create,modify,move,attrib,delete /opt &
+
+
+
+rsync+inotifywait 实时监控并且同步（需要免密验证）
+
+
+编写监控脚本
+vim /isync.sh
+#! /bin/bash
+FROM_DIR="目录a"
+RSYNC_CMD="rsync - az - - delete $FROM_DIR root@ip:目录b"
+while inotifywait - rqq - e modify,move,create,delete,attrib $FROM_DIR
+do
+   $RSYNC_CMD
+done &
+
+运行脚本
+./isync.sh
+pgrep -l inotify 
+
+最后为测试效果
+。。。。。。。
+
+
+停止监控任务
+pkill -9 inotify
