@@ -1,20 +1,19 @@
-ÅäÖÃÄäÃûÓÃ»§·ÃÎÊftp¼°ÓĞÈ¨ÏŞÔöÉ¾¸Ä²é
+é…ç½®åŒ¿åç”¨æˆ·è®¿é—®ftpåŠæœ‰æƒé™å¢åˆ æ”¹æŸ¥
 
-¹Ø±Õ·À»ğÇ½»òÕßÉèÖÃÔÊĞí21¶Ë¿ÚÍ¨¹ı
-selinux £º
-setenforce 0 »òÕß setsebool -P ftpd_anon_write on ºÍ setsebool -P ftpd_full_access on
+å…³é—­é˜²ç«å¢™æˆ–è€…è®¾ç½®å…è®¸21ç«¯å£é€šè¿‡
+selinux ï¼š
+setenforce 0 æˆ–è€… setsebool -P ftpd_anon_write on å’Œ setsebool -P ftpd_full_access on
 
-×°°ü 
+è£…åŒ… 
 yum -y install vsftpd
 
+ä¿®æ”¹é…ç½®æ–‡ä»¶
 vim /etc/vsftpd/vsfgpd.conf
+anonymous_enable=YES 		è®¾å®šå…è®¸åŒ¿åç”¨æˆ·è®¿é—®
+anon_upload_enable=yes   	è®¾ç½®å…è®¸åŒ¿åç”¨æˆ·ä¸Šä¼ æ–‡ä»¶
+anon_mkdir_write_enable=yes    	è®¾ç½®å…è®¸åŒ¿åç”¨æˆ·åˆ›å»ºæ–‡ä»¶å¤¹
+anon_other_write_enable=yes    	å…è®¸åŒ¿åç”¨æˆ·å¯¹æ–‡ä»¶å’Œæ–‡ä»¶å¤¹è¿›è¡Œåˆ é™¤ç­‰æ“ä½œ
 
-anonymous_enable=YES 		Éè¶¨ÔÊĞíÄäÃûÓÃ»§·ÃÎÊ
-anon_upload_enable=yes   	ÉèÖÃÔÊĞíÄäÃûÓÃ»§ÉÏ´«ÎÄ¼ş
-anon_mkdir_write_enable=yes    	ÉèÖÃÔÊĞíÄäÃûÓÃ»§´´½¨ÎÄ¼ş¼Ğ
-anon_other_write_enable=yes    	ÔÊĞíÄäÃûÓÃ»§¶ÔÎÄ¼şºÍÎÄ¼ş¼Ğ½øĞĞÉ¾³ıµÈ²Ù×÷
-
-¸³Óè/var/ftp/pubÈ¨ÏŞ
-
+èµ‹äºˆ/var/ftp/pubæƒé™
 chmod -R 755 /var/ftp/pub
 chown -R ftp:ftp /var/ftp/pub
