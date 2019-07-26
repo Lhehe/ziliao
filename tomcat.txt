@@ -1,0 +1,19 @@
+
+http://mirror.bit.edu.cn/apache/tomcat/
+
+
+mkdir /usr/local/tomcat
+
+
+下载解压 后移动到 /usr/local/tomcat/目录下
+
+./startup.sh 启动
+
+查看端口：
+
+netstat -pantul | grep  :8080
+
+测试网页 
+
+curl localhost:8080
+
