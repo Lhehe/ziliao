@@ -8,7 +8,7 @@ setenforce 0 或者 setsebool -P ftpd_anon_write on 和 setsebool -P ftpd_full_a
 yum -y install vsftpd
 
 修改配置文件
-vim /etc/vsftpd/vsfgpd.conf
+vim /etc/vsftpd/vsftpd.conf
 anonymous_enable=YES 		设定允许匿名用户访问
 anon_upload_enable=yes   	设置允许匿名用户上传文件
 anon_mkdir_write_enable=yes    	设置允许匿名用户创建文件夹
