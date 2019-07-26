@@ -1,3 +1,4 @@
 http://mirror.bit.edu.cn/apache/
 http://www.centos.ws/
 https://idc.wanyunshuju.com/yunwei/766.html
+http://www.peter-zhou.com/
