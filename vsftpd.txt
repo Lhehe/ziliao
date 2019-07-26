@@ -1,0 +1,20 @@
+配置匿名用户访问ftp及有权限增删改查
+
+关闭防火墙或者设置允许21端口通过
+selinux ：
+setenforce 0 或者 setsebool -P ftpd_anon_write on 和 setsebool -P ftpd_full_access on
+
+装包 
+yum -y install vsftpd
+
+vim /etc/vsftpd/vsfgpd.conf
+
+anonymous_enable=YES 		设定允许匿名用户访问
+anon_upload_enable=yes   	设置允许匿名用户上传文件
+anon_mkdir_write_enable=yes    	设置允许匿名用户创建文件夹
+anon_other_write_enable=yes    	允许匿名用户对文件和文件夹进行删除等操作
+
+赋予/var/ftp/pub权限
+
+chmod -R 755 /var/ftp/pub
+chown -R ftp:ftp /var/ftp/pub
