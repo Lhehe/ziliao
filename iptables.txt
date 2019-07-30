@@ -1,70 +1,71 @@
-����iptables����Ϊ��ʱ ��service iptables save ���ñ���
 
-�ȹر�ԭ�з���ǽfirewalld
+先关闭原有防火墙firewalld
 systemctl stop firewalld
 
-��װ iptables   
+安装 iptables   
 yum -y install iptables iptables-*
 
 systemctl start iptables 
 
 
-4�� �� nat����ַת������filter(���ݹ���)��raw(״̬����)��mangle(�����)
-5�� �� INPUT(��վ)  OUTPUT(��վ)  FORWARD(ת��)  PREROUTING(·����ǰ)  POSTROUTING(·�ɺ�)
+4表 ： nat（地址转换）、filter(数据过滤)、raw(状态跟踪)、mangle(包标记)
+5链 ： INPUT(入站)  OUTPUT(出站)  FORWARD(转发)  PREROUTING(路由器前)  POSTROUTING(路由后)
 
-iptables [-t ����] ѡ�� [����] [����] -j [ACCEPT(����ͨ��) ��DROP(�ܾ�,ֱ�Ӷ���)��REJECT(�ܾ�,����ʾ)  LOG(��¼��־) ]
+iptables [-t 表名] 选项 [链名] [条件] -j [ACCEPT(允许通过) 、DROP(拒绝,直接丢弃)、REJECT(拒绝,有提示)  LOG(记录日志) ]
 
-����ѡ�� �� -n(����ip��ַ���飬�ٶȻ����) 
-            -L(�鿴��ǰ�����й���Ĭ��Ϊfilter��) 
-            -v(�����ϸ��Ϣ) 
-            --line-number(��ʾ��������к�)  
-            -A(����һ���������) 
-            -I(����һ��������ǰ)
-            -D(ɾ��ָ�����кŵĹ���)
-            -F(ɾ�����й���)
-            -P(����Ĭ�Ϲ���)
-            -R(�޸Ĺ���)
-            -p(���Э��:udp��tcp��icmp......)
-            -s(���Դip��ַ)
-            -d(���Ŀ��ip��ַ)
-            -i(�����������)
-            -m(����--help��ѯ�÷�)
+常用选项 ： -n(不对ip地址反查，速度会更快) 
+            -L(查看当前表所有规则，默认为filter表) 
+            -v(输出详细信息) 
+            --line-number(显示规则的序列号)  
+            -A(添加一条规则到最后) 
+            -I(添加一条规则到最前)
+            -D(删除指定序列号的规则)
+            -F(删除所有规则)
+            -P(设置默认规则)
+            -R(修改规则)
+            -p(后接协议:udp或tcp或icmp......)
+            -s(后接源ip地址)
+            -d(后接目标ip地址)
+            -i(后接网卡名称)
+            -m(请用--help查询用法)
             
 
-ָ��ɾ��filter �еĵ�3������
+指定删除filter 中的第3条规则
 iptables -D INPUT 3
 
-ɾ��filter�����й���
+删除filter的所有规则
 iptables -t filter F
 
-����filter��INPUT����Ĭ�Ϲ���
+设置filter表INPUT链的默认规则
 iptables -t filter -P INPUT DROP
  
 
-�޸ĵ�3������ΪACCEPT
+修改第3条规则为ACCEPT
 iptables -R INPUT 3 -j ACCEPT
 
 
-���ӣ���ֹ�������� ping �������������� ping ��������
+附加：禁止其他主机 ping 本机，允许本机 ping 其他主机
 
-iptables -A INPUT -p icmp --icmp-type echo-request -j DROP ��
+iptables -A INPUT -p icmp --icmp-type echo-request -j DROP 　
 
-��Ҫ��ϸ�˽� ���� iptables -p icmp --help ��ѯ
+需要详细了解 可以 iptables -p icmp --help 查询
 
-��չ#############################################################################
+扩展#############################################################################
 
-�ܾ�macΪ52:54:00:00:00:0b������Զ��
+拒绝mac为52:54:00:00:00:0b的主机远程
 iptables -A INPUT -p tcp --dport 22 -m mac --mac-source  52:54:00:00:00:0b -j DROP
 
-һ����Ҫ���˻���кܶ�˿�
-iptables -A��INPUT -p tcp -m multiport --dports 20:22,25,80,110,143,16501,16800 -j ACCEPT
+一次需要过滤或放行很多端口
+iptables -A　INPUT -p tcp -m multiport --dports 20:22,25,80,110,143,16501,16800 -j ACCEPT
 
 
-ip��ַ��Χ���ù���
+ip地址范围设置规则
 iptables -A -INPUT -p tcp --dport 22 -m iprange --src-range 192.168.4.10-192.168.4.20 -j ACCEPT
 
-��ֹ��ĳһ�����ε�������¼
+禁止从某一个网段的主机登录
 iptables -A INPUT -p tcp --dport 22 -s 192.168.4.0/24 -j DROP
+
+所有iptables规则为临时 ，service iptables save 永久保存
 
 
 
