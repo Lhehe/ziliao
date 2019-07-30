@@ -1,0 +1,30 @@
+查看服务监听的IP中是否有IPv6格式的地址
+
+netstat -tuln
+
+编辑/etc/default/grub，在GRUB_CMDLINE_LINUX加上的后面句首加上ipv6.disable=1
+
+修改前:
+[root@$afgca]# cat /etc/default/grub 
+GRUB_TIMEOUT=5
+GRUB_DISTRIBUTOR="$(sed ‘s, release .*$,,g‘ /etc/system-release)"
+GRUB_DEFAULT=saved
+GRUB_DISABLE_SUBMENU=true
+GRUB_TERMINAL_OUTPUT="console"
+GRUB_CMDLINE_LINUX="rd.lvm.lv=centos/root rd.lvm.lv=centos/swap rhgb quiet"
+GRUB_DISABLE_RECOVERY="true"
+
+修改后：
+[root@$afgca]# cat /etc/default/grub 
+[root@localhost Desktop]# cat /etc/default/grub 
+GRUB_TIMEOUT=5
+GRUB_DISTRIBUTOR="$(sed ‘s, release .*$,,g‘ /etc/system-release)"
+GRUB_DEFAULT=saved
+GRUB_DISABLE_SUBMENU=true
+GRUB_TERMINAL_OUTPUT="console"
+GRUB_CMDLINE_LINUX="ipv6.disable=1 rd.lvm.lv=centos/root rd.lvm.lv=centos/swap rhgb quiet"
+GRUB_DISABLE_RECOVERY="true"
+
+修改完毕后保存，运行grub2-mkconfig -o /boot/grub2/grub.cfg重新生成grub.cfg文件
+
+重启系统，查看ip6是否关闭
