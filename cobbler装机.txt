@@ -1,44 +1,44 @@
-¹Ø±Õ firewalld ¡¢iptables ·À»ğÇ½
-½ûÓÃselinux
+å…³é—­ firewalld ã€iptables é˜²ç«å¢™
+ç¦ç”¨selinux
 
-1¡¢°²×°epelÀ©Õ¹Ô´Èí¼ş°ü(ÒòÎªcobblerÏà¹ØÈí¼ş°üÊÇÓÉepelÔ´Ìá¹©)
+1ã€å®‰è£…epelæ‰©å±•æºè½¯ä»¶åŒ…(å› ä¸ºcobblerç›¸å…³è½¯ä»¶åŒ…æ˜¯ç”±epelæºæä¾›)
 yum -y install epel-release
 
-2¡¢°²×°±ØÒªÈí¼ş°ü
+2ã€å®‰è£…å¿…è¦è½¯ä»¶åŒ…
 yum -y install cobbler cobbler-web dhcp tftp-server pykickstart httpd rsync xinetd
 
-3¡¢ĞŞ¸ÄcobblerÅäÖÃÎÄ¼ş/etc/cobbler/settings
-server:tftp·şÎñÆ÷µØÖ·
-next_server:cobbler·şÎñÆ÷µØÖ·
-manage_dhcp:1 ¹ÜÀídhcp
-pxe_just_once:1 ·ÀÖ¹ÖØ×°
+3ã€ä¿®æ”¹cobbleré…ç½®æ–‡ä»¶/etc/cobbler/settings
+server:tftpæœåŠ¡å™¨åœ°å€
+next_server:cobbleræœåŠ¡å™¨åœ°å€
+manage_dhcp:1 ç®¡ç†dhcp
+pxe_just_once:1 é˜²æ­¢é‡è£…
 
-4¡¢ÓÃcobbler¼ì²é,ĞèÒªÓÅ»¯µÄ²¿·Ö×ÔĞĞ½â¾ö
+4ã€ç”¨cobbleræ£€æŸ¥,éœ€è¦ä¼˜åŒ–çš„éƒ¨åˆ†è‡ªè¡Œè§£å†³
 cobbler check
 
-5¡¢ĞŞ¸ÄtftpÅäÖÃÎÄ¼ş/etc/xinetd.d/tftp
+5ã€ä¿®æ”¹tftpé…ç½®æ–‡ä»¶/etc/xinetd.d/tftp
 disable = no
 
-6¡¢ĞŞ¸Äcobbler¹ÜÀíÔ±ÃÜÂë,²¢¼ÓÃÜÃÜÂë
-openssl pass -1 -salt "ÈÎÒâ×Ö·û" "ÃÜÂë" ¡¢°ÑÉú³ÉµÄ¼ÓÃÜÃÜÂë¸´ÖÆµ½/etc/cobbler/settings/ÖĞ
-default_password_crypted: "¼ÓÃÜÃÜÂë"
+6ã€ä¿®æ”¹cobblerç®¡ç†å‘˜å¯†ç ,å¹¶åŠ å¯†å¯†ç 
+openssl pass -1 -salt "ä»»æ„å­—ç¬¦" "å¯†ç " ã€æŠŠç”Ÿæˆçš„åŠ å¯†å¯†ç å¤åˆ¶åˆ°/etc/cobbler/settings/ä¸­
+default_password_crypted: "åŠ å¯†å¯†ç "
 
 
-7¡¢ÏÂÔØ°²×°Òıµ¼³ÌĞò
+7ã€ä¸‹è½½å®‰è£…å¼•å¯¼ç¨‹åº
 cobbler get-loaders
 
-8¡¢ĞŞ¸Äcobbler¹ÜÀíµÄdhcpÄ£°å/etc/cobbler/dhcp.tempate
-Æô¶¯dhcp·şÎñ
+8ã€ä¿®æ”¹cobblerç®¡ç†çš„dhcpæ¨¡æ¿/etc/cobbler/dhcp.tempate
+å¯åŠ¨dhcpæœåŠ¡
 
-9¡¢Í¬²½ÅäÖÃÎÄ¼ş
+9ã€åŒæ­¥é…ç½®æ–‡ä»¶
 cobbler sync
 
-10¡¢µ¼Èë¾µÏñÎÄ¼ş 
+10ã€å¯¼å…¥é•œåƒæ–‡ä»¶ 
 mount /dev/sr0   /mnt
 cobbler import --path=/mnt/ --name=Centos-7-x86_64 --arch=x86_64
-cobbler list ²é¿´µ¼Èë½á¹û
+cobbler list æŸ¥çœ‹å¯¼å…¥ç»“æœ
 
-ÖØÆôËùÓĞ·şÎñ
+é‡å¯æ‰€æœ‰æœåŠ¡
 systemctl restart httpd
 systemctl restart dhcpd
 systemctl restart xinetd
@@ -46,36 +46,37 @@ systemctl restart cobblerd
 systemctl restart tftp
 systemctl restart rsyncd
 
-11¡¢²é¿´ÄÚºËºÍ³õÊ¼»¯ÎÄ¼ş tree /var/lib/tftpboot/images
+11ã€æŸ¥çœ‹å†…æ ¸å’Œåˆå§‹åŒ–æ–‡ä»¶ tree /var/lib/tftpboot/images
 /var/lib/tftpboot
-©À©¤©¤ boot
-©¦?? ©¸©¤©¤ grub
-©¦??     ©¸©¤©¤ menu.lst
-©À©¤©¤ etc
-©À©¤©¤ grub
-©¦?? ©À©¤©¤ efidefault
-©¦?? ©À©¤©¤ grub-x86_64.efi
-©¦?? ©À©¤©¤ grub-x86.efi
-©¦?? ©¸©¤©¤ images -> ../images
-©À©¤©¤ images
-©¦?? ©¸©¤©¤ CentOS-7-x86_64
-©¦??     ©À©¤©¤ initrd.img
-©¦??     ©¸©¤©¤ vmlinuz
-©À©¤©¤ images2
-©À©¤©¤ memdisk
-©À©¤©¤ menu.c32
-©À©¤©¤ ppc
-©À©¤©¤ pxelinux.0
-©À©¤©¤ pxelinux.cfg
-©¦?? ©¸©¤©¤ default
-©À©¤©¤ s390x
-©¦?? ©¸©¤©¤ profile_list
-©¸©¤©¤ yaboot
+â”œâ”€â”€ boot
+â”‚?? â””â”€â”€ grub
+â”‚??     â””â”€â”€ menu.lst
+â”œâ”€â”€ etc
+â”œâ”€â”€ grub
+â”‚?? â”œâ”€â”€ efidefault
+â”‚?? â”œâ”€â”€ grub-x86_64.efi
+â”‚?? â”œâ”€â”€ grub-x86.efi
+â”‚?? â””â”€â”€ images -> ../images
+â”œâ”€â”€ images
+â”‚?? â””â”€â”€ CentOS-7-x86_64
+â”‚??     â”œâ”€â”€ initrd.img
+â”‚??     â””â”€â”€ vmlinuz
+â”œâ”€â”€ images2
+â”œâ”€â”€ memdisk
+â”œâ”€â”€ menu.c32
+â”œâ”€â”€ ppc
+â”œâ”€â”€ pxelinux.0
+â”œâ”€â”€ pxelinux.cfg
+â”‚?? â””â”€â”€ default
+â”œâ”€â”€ s390x
+â”‚?? â””â”€â”€ profile_list
+â””â”€â”€ yaboot
 
-12¡¢ksÄ¬ÈÏÎÄ¼ş´æ·ÅÎ»ÖÃ
+12ã€ksé»˜è®¤æ–‡ä»¶å­˜æ”¾ä½ç½®
 /var/lib/cobbler/kickstarts/sample_end.ks
 
-13¡¢¸øcobbler web½çÃæ¹ÜÀíÉèÖÃ
-htdigest -c /etc/cobbler/users.digest Cobbler jack  #¸øcobblerÌí¼ÓÒ»¸öjackÓÃ»§
+13ã€ç»™cobbler webç•Œé¢ç®¡ç†è®¾ç½®
+htdigest -c /etc/cobbler/users.digest Cobbler jack  #ç»™cobbleræ·»åŠ ä¸€ä¸ªjackç”¨æˆ·
+è®¿é—® https://ipåœ°å€/cobbler_webç™»å½•
 
-×°»úºóµÄ»úÆ÷Ä¬ÈÏÓÃ»§Ãû root  ÃÜÂë cobbler
+è£…æœºåçš„æœºå™¨é»˜è®¤ç”¨æˆ·å root  å¯†ç  cobbler
