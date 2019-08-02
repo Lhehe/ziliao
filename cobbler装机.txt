@@ -12,6 +12,8 @@ server:tftp服务器地址
 next_server:cobbler服务器地址
 manage_dhcp:1 管理dhcp
 pxe_just_once:1 防止重装
+systemctl start httpd
+systemctl start cobblerd
 
 4、用cobbler检查,需要优化的部分自行解决
 cobbler check
