@@ -22,7 +22,7 @@ cobbler check
 disable = no
 
 6、修改cobbler管理员密码,并加密密码
-openssl pass -1 -salt "任意字符" "密码" 、把生成的加密密码复制到/etc/cobbler/settings/中
+openssl passwd -1 -salt "任意字符" "密码" 、把生成的加密密码复制到/etc/cobbler/settings/中
 default_password_crypted: "加密密码"
 
 
