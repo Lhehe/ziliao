@@ -80,5 +80,23 @@ systemctl restart rsyncd
 13、给cobbler web界面管理设置
 htdigest -c /etc/cobbler/users.digest Cobbler jack  #给cobbler添加一个jack用户
 访问 https://ip地址/cobbler_web登录
+如果出现Internal Server Error，查看日志 tail -f /var/log/httpd/ssl_error_log
+可以初步判断应该是pythone-django版本问题
+#下载pip.py
+wget https://bootstrap.pypa.io/get-pip.py
+
+#调用本地python运行pip.py脚本
+python get-pip.py
+
+#安装pip
+pip install Django==1.8.9
+
+#查看pip版本号
+python -c "import django; print(django.get_version())"
+
+#重启httpd
+systemctl restart httpd
+
+
 
 装机后的机器默认用户名 root  密码 cobbler
