@@ -1,30 +1,30 @@
-²é¿´·şÎñ¼àÌıµÄIPÖĞÊÇ·ñÓĞIPv6¸ñÊ½µÄµØÖ·
+æŸ¥çœ‹æœåŠ¡ç›‘å¬çš„IPä¸­æ˜¯å¦æœ‰IPv6æ ¼å¼çš„åœ°å€
 
 netstat -tuln
 
-±à¼­/etc/default/grub£¬ÔÚGRUB_CMDLINE_LINUX¼ÓÉÏµÄºóÃæ¾äÊ×¼ÓÉÏipv6.disable=1
+ç¼–è¾‘/etc/default/grubï¼Œåœ¨GRUB_CMDLINE_LINUXåŠ ä¸Šçš„åé¢å¥é¦–åŠ ä¸Šipv6.disable=1
 
-ĞŞ¸ÄÇ°:
+ä¿®æ”¹å‰:
 [root@$afgca]# cat /etc/default/grub 
 GRUB_TIMEOUT=5
-GRUB_DISTRIBUTOR="$(sed ¡®s, release .*$,,g¡® /etc/system-release)"
+GRUB_DISTRIBUTOR="$(sed â€˜s, release .*$,,gâ€˜ /etc/system-release)"
 GRUB_DEFAULT=saved
 GRUB_DISABLE_SUBMENU=true
 GRUB_TERMINAL_OUTPUT="console"
-GRUB_CMDLINE_LINUX="rd.lvm.lv=centos/root rd.lvm.lv=centos/swap rhgb quiet"
+GRUB_CMDLINE_LINUX="crashkernel=auto rd.lvm.lv=centos/root rd.lvm.lv=centos/swap rhgb quiet"
 GRUB_DISABLE_RECOVERY="true"
 
-ĞŞ¸Äºó£º
+ä¿®æ”¹åï¼š
 [root@$afgca]# cat /etc/default/grub 
 [root@localhost Desktop]# cat /etc/default/grub 
 GRUB_TIMEOUT=5
-GRUB_DISTRIBUTOR="$(sed ¡®s, release .*$,,g¡® /etc/system-release)"
+GRUB_DISTRIBUTOR="$(sed â€˜s, release .*$,,gâ€˜ /etc/system-release)"
 GRUB_DEFAULT=saved
 GRUB_DISABLE_SUBMENU=true
 GRUB_TERMINAL_OUTPUT="console"
-GRUB_CMDLINE_LINUX="ipv6.disable=1 rd.lvm.lv=centos/root rd.lvm.lv=centos/swap rhgb quiet"
+GRUB_CMDLINE_LINUX="ipv6.disable=1 crashkernel=auto rd.lvm.lv=centos/root rd.lvm.lv=centos/swap rhgb quiet"
 GRUB_DISABLE_RECOVERY="true"
 
-ĞŞ¸ÄÍê±Ïºó±£´æ£¬ÔËĞĞgrub2-mkconfig -o /boot/grub2/grub.cfgÖØĞÂÉú³Égrub.cfgÎÄ¼ş
+ä¿®æ”¹å®Œæ¯•åä¿å­˜ï¼Œè¿è¡Œgrub2-mkconfig -o /boot/grub2/grub.cfgé‡æ–°ç”Ÿæˆgrub.cfgæ–‡ä»¶
 
-ÖØÆôÏµÍ³£¬²é¿´ip6ÊÇ·ñ¹Ø±Õ
+é‡å¯ç³»ç»Ÿï¼ŒæŸ¥çœ‹ip6æ˜¯å¦å…³é—­
