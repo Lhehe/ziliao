@@ -16,3 +16,5 @@ showmount -e ip    查看服务器共享的目录
 mount  ip:/目录    /
 
 如果报错 clnt_create: RPC: Program not registered 则在服务端输入 rpc.mountd
+
+最后断开连接 需要客户端先取消挂载 不然会出现卡住的情况
