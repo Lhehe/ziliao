@@ -91,4 +91,17 @@ k  l
 [root@linfan ~]# cd /opt/lin
 [root@linfan lin]# ls
 k  l
-最后断开连接 需要客户端先取消挂载 不然会出现卡住的情况 
+linux最后断开连接 需要客户端先取消挂载 不然会出现卡住的情况 
+
+windows访问：
+winxp下我的电脑--工具--映射网络驱动器--文件夹--\\ip\目录 ，输入用户名，密码，就ok了
+
+＃setsebool –P samba_enable_home_dir on
+＃setsebool –P samba_export_all_ro on
+＃setsebool –P samba_export_all_rw on
+
+我们可以用命令getsebool –a | grep samba
+查看上面三项是否打开，打开的话你的共享应该就正常了。
+如果还是出现不能访问的情况，请清除你的防火墙规则：
+iptables -F //清除规则
+iptables -L //查看是否清除掉了！
