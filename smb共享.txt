@@ -1,21 +1,21 @@
-·şÎñ¶Ë£º
-1.¹Ø±Õ·À»ğÇ½
+æœåŠ¡ç«¯ï¼š
+1.å…³é—­é˜²ç«å¢™
 selinux 
   setsebool -a | grep samba_exp
   setsebool -P samba_export_all_rw=on
 
-2.°²×°samba·şÎñÆ÷£º
+2.å®‰è£…sambaæœåŠ¡å™¨ï¼š
   yum -y install samba-*
 
-3.¹²ÏíÓÃ»§ÅäÖÃ
+3.å…±äº«ç”¨æˆ·é…ç½®
  useradd -M lin
-ÎªÓÃ»§lin´´½¨smb¹²ÏíÃÜÂë
+ä¸ºç”¨æˆ·linåˆ›å»ºsmbå…±äº«å¯†ç 
 
  smbpasswd -a lin
-½«linÓÃ»§Ó³ÉäÎªshareÓÃ»§£º
+å°†linç”¨æˆ·æ˜ å°„ä¸ºshareç”¨æˆ·ï¼š
 
  echo 'lin = share' > /etc/samba/smbusers
-ÔÚÈ«¾Ö±äÁ¿ÖĞÌí¼ÓÈçÏÂÄÚÈİ£º
+åœ¨å…¨å±€å˜é‡ä¸­æ·»åŠ å¦‚ä¸‹å†…å®¹ï¼š
 
 [root@linfan ~]# vi /etc/samba/smb.conf
 # See smb.conf.example for a more detailed config file or
@@ -26,24 +26,24 @@ selinux
 [global]
         workgroup = SAMBA
         security = user
-        username map = /etc/samba/smbusers  //ÔÚ´ËÌí¼Ó 
+        username map = /etc/samba/smbusers  //åœ¨æ­¤æ·»åŠ  
 
-4. ´´½¨Ò»¸ö¹²ÏíÄ¿Â¼lin
+4. åˆ›å»ºä¸€ä¸ªå…±äº«ç›®å½•lin
 [root@linfan ~]# mkdir -p /opt/lin/
 [root@linfan ~]# chown -R lin.lin /opt/lin/
 
-5.ÅäÖÃ¹²Ïí
+5.é…ç½®å…±äº«
 [root@linfan ~]# cat >> /etc/samba/smb.conf <<EOF
-> [lin]       //¹²ÏíÄ¿Â¼Ãû³Æ
-> comment = lin   //ÃèÊö
-> path = /opt/lin   //¹²ÏíÄ¿Â¼µÄÂ·¾¶
-> browseable = yes   //ÉèÖÃÎª¿É¼û
-> guest ok = yes   //ÉèÖÃÔÊĞíÄäÃû·ÃÎÊ
-> writable = yes   //ÉèÖÃ¿ÉĞ´
-> write list = share   //Ö»ÓĞshareÓÃ»§ÓµÓĞ¶ÁÈ¨ÏŞ
-> public = yes  //ÉèÖÃÄäÃû¿É·ÃÎÊ
+> [lin]       //å…±äº«ç›®å½•åç§°
+> comment = lin   //æè¿°
+> path = /opt/lin   //å…±äº«ç›®å½•çš„è·¯å¾„
+> browseable = yes   //è®¾ç½®ä¸ºå¯è§
+> guest ok = yes   //è®¾ç½®å…è®¸åŒ¿åè®¿é—®
+> writable = yes   //è®¾ç½®å¯å†™
+> write list = share   //åªæœ‰shareç”¨æˆ·æ‹¥æœ‰è¯»æƒé™
+> public = yes  //è®¾ç½®åŒ¿åå¯è®¿é—®
 > EOF
-[root@linfan ~]# testparm   //²âÊÔÊÇ·ñÕıÈ·
+[root@linfan ~]# testparm   //æµ‹è¯•æ˜¯å¦æ­£ç¡®
 [root@linfan ~]# tail -8 /etc/samba/smb.conf
 [lin]
 comment = lin
@@ -55,31 +55,31 @@ write list = share
 public = yes
 
 
-Æô¶¯smb·şÎñ
+å¯åŠ¨smbæœåŠ¡
 
 [root@linfan ~]# systemctl start smb
-ÖØÆôsmb·şÎñ
+é‡å¯smbæœåŠ¡
 
 [root@linfan ~]# systemctl restart smb
-ÖØĞÂ¼ÓÔØsmb·şÎñ
+é‡æ–°åŠ è½½smbæœåŠ¡
 
 [root@linfan ~]# systemctl reload smb
-ÉèÖÃsmb¿ª»ú×ÔÆô¶¯
+è®¾ç½®smbå¼€æœºè‡ªå¯åŠ¨
 
 [root@linfan ~]# systemctl enable smb
 
-ÔÚ¿Í»§¶Ë²Ù×÷
+åœ¨å®¢æˆ·ç«¯æ“ä½œ
 
-1.²é¿´smb·şÎñÆ÷¹²ÏíÁËÄÄĞ©×ÊÔ´
+1.æŸ¥çœ‹smbæœåŠ¡å™¨å…±äº«äº†å“ªäº›èµ„æº
 [root@linfan ~]# smbclient -L 192.168.24.248 -U share
 
-2.´´½¨¹ÒÔØÄ¿Â¼
+2.åˆ›å»ºæŒ‚è½½ç›®å½•
 [root@linfan ~]# mkdir -p /opt/smb/
 
-3.½«smb·şÎñÆ÷ÉÏµÄlin¹ÒÔØµ½±¾µØ
+3.å°†smbæœåŠ¡å™¨ä¸Šçš„linæŒ‚è½½åˆ°æœ¬åœ°
 [root@linfan ~]# mount -t cifs //192.168.24.248/lin /opt/smb -o username=share,password=1
 
-4.½øÈë¿Í»§¶Ë¹²ÏíÄ¿Â¼´´½¨ĞÂÎÄ¼ş
+4.è¿›å…¥å®¢æˆ·ç«¯å…±äº«ç›®å½•åˆ›å»ºæ–°æ–‡ä»¶
 [root@linfan opt]# cd /opt/smb
 
 [root@linfan smb]# mkdir l
@@ -87,8 +87,8 @@ public = yes
 [root@linfan smb]# ls
 k  l
 
-5.ÔÚ·şÎñ¶ËÑéÖ¤
+5.åœ¨æœåŠ¡ç«¯éªŒè¯
 [root@linfan ~]# cd /opt/lin
 [root@linfan lin]# ls
 k  l
-
+æœ€åæ–­å¼€è¿æ¥ éœ€è¦å®¢æˆ·ç«¯å…ˆå–æ¶ˆæŒ‚è½½ ä¸ç„¶ä¼šå‡ºç°å¡ä½çš„æƒ…å†µ 
