@@ -1,18 +1,18 @@
-°²×°Èí¼ş
+å®‰è£…è½¯ä»¶(æœåŠ¡ç«¯,å®¢æˆ·ç«¯)
 yum -y install nfs-utils
 
-ÅäÖÃÎÄ¼ş
+é…ç½®æ–‡ä»¶
 vim /etc/exports
-¹ÒÔØµã    ipµØÖ·/×ÓÍøÑÚÂë(È¨ÏŞ,no_root_squash)
+æŒ‚è½½ç‚¹    ipåœ°å€/å­ç½‘æ©ç (æƒé™,no_root_squash)
 /         192.168.0.0/24(rw,no_root_squash)
 
 systemctl restart nfs-server
 
-showmount -e ip    ²é¿´·şÎñÆ÷¹²ÏíµÄÄ¿Â¼
+showmount -e ip    æŸ¥çœ‹æœåŠ¡å™¨å…±äº«çš„ç›®å½•
 
 
-¿Í»§¶Ë
+å®¢æˆ·ç«¯
 
-mount  ip:/Ä¿Â¼    /
+mount  ip:/ç›®å½•    /
 
-Èç¹û±¨´í clnt_create: RPC: Program not registered ÔòÔÚ·şÎñ¶ËÊäÈë rpc.mountd
+å¦‚æœæŠ¥é”™ clnt_create: RPC: Program not registered åˆ™åœ¨æœåŠ¡ç«¯è¾“å…¥ rpc.mountd
