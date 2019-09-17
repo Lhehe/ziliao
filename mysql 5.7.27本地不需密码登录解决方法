@@ -1,0 +1,33 @@
+第一步
+登录到mysql服务中
+输入 select user,host,plugin from mysql.user;  
+localhost 的 root 用户跟其他用户都不同，其他用户都是 mysql_native_password, 而默认用户却是 auth_socket, 于是果断改过来试下
+
+mysql> select user,Host, plugin from mysql.user;
++------------+-------------+-----------------------+
+| user       | Host        | plugin                |
++------------+-------------+-----------------------+
+| root       | localhost   | auth_socket           |
+| ppexchange | %           | mysql_native_password |
+| root       | 172.16.10.* | mysql_native_password |
+| admin      | localhost   | mysql_native_password |
++------------+-------------+-----------------------+
+mysql> update mysql.user set plugin = 'mysql_native_password' where user = 'root' and host='localhost';
+mysql> FLUSH PRIVILEGES;
+mysql> exit
+systemctl restart mysql
+退出重启 MySQL 之后 如果还是无需密码就可以登录mysql服务,则进行第二步
+
+第二步
+查看授权表：
+mysql> select authentication_string from mysql.user where user='root' and host='localhost';
+不出意外的话，此字段为空，所以我们给它添加密码，添加之后的密码是以密文显示
+mysql> update mysql.user set authentication_string=PASSWORD('密码') where user='root' and host='localhost';
+mysql> FLUSH PRIVILEGES;
+mysql> exit
+systemctl restart mysql
+
+然后就成功啦!!最后效果如下
+root@ecs-ec64:~# mysql
+ERROR 1045 (28000): Access denied for user 'root'@'localhost' (using password: NO)
+
