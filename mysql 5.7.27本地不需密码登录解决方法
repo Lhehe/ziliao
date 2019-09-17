@@ -2,7 +2,7 @@
 登录到mysql服务中
 输入 select user,host,plugin from mysql.user;  
 localhost 的 root 用户跟其他用户都不同，其他用户都是 mysql_native_password, 而默认用户却是 auth_socket, 于是果断改过来试下
-
+(目前百度上看到说auth_socket和mysql_native_password属于插件，具体原因有待商榷)
 mysql> select user,Host, plugin from mysql.user;
 +------------+-------------+-----------------------+
 | user       | Host        | plugin                |
