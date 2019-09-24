@@ -1,0 +1,11 @@
+使用split切割大文件
+例如：我把adsearch.hprof文件按100MB大小拆分，可以拆分成4个文件
+split -b 100M adsearch.hprof （有需要可以在命令后加上指定前缀)
+看到在执行完split命令后，目录下生成了四个相同大小 xaa、xab、xac、xad四个100MB的小文件。
+
+使用 cat 命令把文件组合
+cat xa* > adsearch.hprof
+
+如果在cmd下可以使用copy组合文件
+可以使用copy /b 命令来拼接，其中 /b 代表指定以二进制格式进行复制
+copy /b xaa + xab + xac + xad adsearch.hprof
