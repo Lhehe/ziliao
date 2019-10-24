@@ -1,0 +1,18 @@
+服务端操作：
+装包
+apt-get install nfs-kernel-server
+该配置文件，把服务端/home/nfs共享
+vim /etc/exports末尾添加
+/home/nfs *(rw,sync,no_root_squash,no_subtree_check)
+
+
+客户端操作：
+装包
+apt-get install nfs-common
+showmount -e ip地址(查看有没有共享成功)
+新建目录/home/nfs
+vim /etc/fstab添加
+服务端ip:/home/nfs /home/nfs  nfs    rw,tcp,soft    0  0
+
+mount -a && df -h 查看
+
