@@ -1,12 +1,13 @@
-³£¼ûµÄÍø¿¨°ó¶¨Ä£Ê½ÓÐÈçÏÂÈýÖÖ£º
-mode0£ºÂÖÑ¯Á´Â·
-mode1£ºÖ÷±¸Á´Â·
-node3£º¹ã²¥Á´Â·
-Ö÷±¸£º
-Í¨¹ýË«Íø¿¨ÉèÖÃÖ÷±¸Ä£Ê½£¬ÊµÏÖµ±Ò»¿éÍø¿¨å´µôÊ±£¬ÁíÍâÒ»¿éÍø¿¨¿ÉÒÔ×Ô¶¯¶¥Ìæå´µôµÄÍø¿¨¹¤×÷£¬±£ÕÏÍøÂçÕý³£·ÃÎÊ¡£
+å¸¸è§çš„ç½‘å¡ç»‘å®šæ¨¡å¼æœ‰å¦‚ä¸‹ä¸‰ç§ï¼š
+mode0ï¼šè½®è¯¢é“¾è·¯
+mode1ï¼šä¸»å¤‡é“¾è·¯
+mode3ï¼šå¹¿æ’­é“¾è·¯
+mode4: é“¾è·¯èšåˆ
+ä¸»å¤‡ï¼š
+é€šè¿‡åŒç½‘å¡è®¾ç½®ä¸»å¤‡æ¨¡å¼ï¼Œå®žçŽ°å½“ä¸€å—ç½‘å¡å®•æŽ‰æ—¶ï¼Œå¦å¤–ä¸€å—ç½‘å¡å¯ä»¥è‡ªåŠ¨é¡¶æ›¿å®•æŽ‰çš„ç½‘å¡å·¥ä½œï¼Œä¿éšœç½‘ç»œæ­£å¸¸è®¿é—®ã€‚
 
-1¡¢ÐÞ¸ÄÍø¿¨ÅäÖÃÎÄ¼þ
-ÐÞ¸ÄÍø¿¨ÅäÖÃÎÄ¼þifcfg-eth0 ,±£Ö¤ÒÔÏÂ¼¸ÏîÄÚÈÝÕýÈ·£º
+1ã€ä¿®æ”¹ç½‘å¡é…ç½®æ–‡ä»¶
+ä¿®æ”¹ç½‘å¡é…ç½®æ–‡ä»¶ifcfg-eth0 ,ä¿è¯ä»¥ä¸‹å‡ é¡¹å†…å®¹æ­£ç¡®ï¼š
 
 TYPE=Ethernet
 
@@ -18,7 +19,7 @@ MASTER=bond0
 
 SLAVE=yes
 
-ÐÞ¸ÄÍø¿¨ÅäÖÃÎÄ¼þifcfg-eth1 Èç¹ûÃ»ÓÐ´´½¨,±£Ö¤ÒÔÏÂ¼¸ÏîÄÚÈÝÕýÈ·£¨Í¬ÉÏ£©£º
+ä¿®æ”¹ç½‘å¡é…ç½®æ–‡ä»¶ifcfg-eth1 å¦‚æžœæ²¡æœ‰åˆ›å»º,ä¿è¯ä»¥ä¸‹å‡ é¡¹å†…å®¹æ­£ç¡®ï¼ˆåŒä¸Šï¼‰ï¼š
 
 DEVICE=eth1
 
@@ -32,13 +33,13 @@ MASTER=bond0
 
 SLAVE=yes
 
-2¡¢ÐéÄâÍø¿¨ÎÄ¼þÅäÖÃ
+2ã€è™šæ‹Ÿç½‘å¡æ–‡ä»¶é…ç½®
 
-´´½¨ÎÄ¼þ
+åˆ›å»ºæ–‡ä»¶
 
 touch ifcfg-bond0
 
-±à¼­ÎÄ¼þÌí¼ÓÒÔÏÂÄÚÈÝ£º
+ç¼–è¾‘æ–‡ä»¶æ·»åŠ ä»¥ä¸‹å†…å®¹ï¼š
 
 DEVICE=bond0
 
@@ -48,28 +49,28 @@ ONBOOT=yes
 
 BOOTPROTO=none
 
-IPADDR="ipµØÖ·"
+IPADDR="ipåœ°å€"
 
-NETMASK="ÑÚÂë"
+NETMASK="æŽ©ç "
 
-GATEWAY="Íø¹Ø"
+GATEWAY="ç½‘å…³"
 
 DNS="DNS"
 
 NAME=bond0
 
-BONDING_OPTS=¡±miimon=100 mode=1¡±
+BONDING_OPTS=â€miimon=100 mode=1â€
 
-ËµÃ÷£ºÈç¹ûÊÇÔÚÐéÄâ»úÀïBONDING_OPTS ÐèÒªÌí¼Ófail_over_mac=1 ÈçBONDING_OPTS=¡±miimon=100 mode=1 fail_over_mac=1¡±
+è¯´æ˜Žï¼šå¦‚æžœæ˜¯åœ¨è™šæ‹Ÿæœºé‡ŒBONDING_OPTS éœ€è¦æ·»åŠ fail_over_mac=1 å¦‚BONDING_OPTS=â€miimon=100 mode=1 fail_over_mac=1â€
 
-3¡¢ÖØÆô·þÎñ systemctl restart network
+3ã€é‡å¯æœåŠ¡ systemctl restart network
 
-4¡¢²é¿´Ö÷±¸ÐÅÏ¢ cat /proc/net/bonding/bond0
+4ã€æŸ¥çœ‹ä¸»å¤‡ä¿¡æ¯ cat /proc/net/bonding/bond0
 
-5¡¢²âÊÔ
-¹Ø±Õeth0 ifdown ifcfg-eth0
+5ã€æµ‹è¯•
+å…³é—­eth0 ifdown ifcfg-eth0
 
-ping¿´ÊÇ·ñpingÍ¨£¬²é¿´Ö÷Òª±¸ÊÇ·ñÇÐ»»
+pingçœ‹æ˜¯å¦pingé€šï¼ŒæŸ¥çœ‹ä¸»è¦å¤‡æ˜¯å¦åˆ‡æ¢
 
-²é¿´µ±Ç°Ê¹ÓÃµÄ°ó¶¨Ä£Ê½ cat /sys/class/net/bond0/bonding/mode
+æŸ¥çœ‹å½“å‰ä½¿ç”¨çš„ç»‘å®šæ¨¡å¼ cat /sys/class/net/bond0/bonding/mode
 
