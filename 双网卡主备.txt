@@ -10,27 +10,18 @@ mode4: 链路聚合
 修改网卡配置文件ifcfg-eth0 ,保证以下几项内容正确：
 
 TYPE=Ethernet
-
 BOOTPROTO=dhcp
-
 ONBOOT=yes
-
 MASTER=bond0
-
 SLAVE=yes
 
 修改网卡配置文件ifcfg-eth1 如果没有创建,保证以下几项内容正确（同上）：
 
 DEVICE=eth1
-
 TYPE=Ethernet
-
 BOOTPROTO=dhcp
-
 ONBOOT=yes
-
 MASTER=bond0
-
 SLAVE=yes
 
 2、虚拟网卡文件配置
@@ -42,23 +33,14 @@ touch ifcfg-bond0
 编辑文件添加以下内容：
 
 DEVICE=bond0
-
 TYPE= Ethernet
-
 ONBOOT=yes
-
 BOOTPROTO=none
-
 IPADDR="ip地址"
-
 NETMASK="掩码"
-
 GATEWAY="网关"
-
 DNS="DNS"
-
 NAME=bond0
-
 BONDING_OPTS=”miimon=100 mode=1”
 
 说明：如果是在虚拟机里BONDING_OPTS 需要添加fail_over_mac=1 如BONDING_OPTS=”miimon=100 mode=1 fail_over_mac=1”
