@@ -1,0 +1,75 @@
+常见的网卡绑定模式有如下三种：
+mode0：轮询链路
+mode1：主备链路
+node3：广播链路
+主备：
+通过双网卡设置主备模式，实现当一块网卡宕掉时，另外一块网卡可以自动顶替宕掉的网卡工作，保障网络正常访问。
+
+1、修改网卡配置文件
+修改网卡配置文件ifcfg-eth0 ,保证以下几项内容正确：
+
+TYPE=Ethernet
+
+BOOTPROTO=dhcp
+
+ONBOOT=yes
+
+MASTER=bond0
+
+SLAVE=yes
+
+修改网卡配置文件ifcfg-eth1 如果没有创建,保证以下几项内容正确（同上）：
+
+DEVICE=eth1
+
+TYPE=Ethernet
+
+BOOTPROTO=dhcp
+
+ONBOOT=yes
+
+MASTER=bond0
+
+SLAVE=yes
+
+2、虚拟网卡文件配置
+
+创建文件
+
+touch ifcfg-bond0
+
+编辑文件添加以下内容：
+
+DEVICE=bond0
+
+TYPE= Ethernet
+
+ONBOOT=yes
+
+BOOTPROTO=none
+
+IPADDR="ip地址"
+
+NETMASK="掩码"
+
+GATEWAY="网关"
+
+DNS="DNS"
+
+NAME=bond0
+
+BONDING_OPTS=”miimon=100 mode=1”
+
+说明：如果是在虚拟机里BONDING_OPTS 需要添加fail_over_mac=1 如BONDING_OPTS=”miimon=100 mode=1 fail_over_mac=1”
+
+3、重启服务 systemctl restart network
+
+4、查看主备信息 cat /proc/net/bonding/bond0
+
+5、测试
+关闭eth0 ifdown ifcfg-eth0
+
+ping看是否ping通，查看主要备是否切换
+
+查看当前使用的绑定模式 cat /sys/class/net/bond0/bonding/mode
+
