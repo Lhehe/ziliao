@@ -7,7 +7,7 @@ pvcreate /dev/sdb
 pvcreate /dev/sdc
 创建逻辑卷组VolGroup00，并将 /dev/sdc和/dev/sdb 加入其中
  vgcreate VolGroup00 /dev/sdb 
- vgcreate VolGroup00 /dev/sdc
+ vgextend VolGroup00 /dev/sdc
 使用pvdisplay查看/dev/sdb /dev/sdc的Free PE
 或则直接使用vgdisply 查看Free PE 的总数
 然后创建卷：lvcreate -l +23038 -n vg01 VolGroup00 （vg01为卷，VolGroup00为卷组，23038为Free PE）
