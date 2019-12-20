@@ -17,8 +17,8 @@ pvcreate /dev/sdc
 
 删除必须按 逻辑卷LV --> 卷组VG --> 物理卷PV 的顺序删除
 卸载卷组上的逻辑卷LV umount
-删除逻辑卷LV lvremove ,lvdisplay验证是否删除
+删除逻辑卷LV lvremove /dev/VG/LV ,lvdisplay验证是否删除
 删除卷组VG  vgremove ，如果采用安全的方式删除卷组VG，则必须使用 （vgchange -a n 卷组名称 ）将其关闭，然后删除，vgscan验证删除
-删除物理卷PV pvremove ，pvscan验证
+删除物理卷PV pvremove /dev/sdb /dev/sdc ，pvscan验证
 编辑 /etc/fstab 删除对应挂载点信息
 如果没有设置挂载点，可以忽略这一步，否则重启系统就会出现问题，切记！
