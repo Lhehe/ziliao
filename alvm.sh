@@ -22,8 +22,8 @@ LV_Path=`lvdisplay | grep "LV Path" | awk '{print $3}'`
 echo "请把 $LV_Path 格式化挂载使用,谢谢！！"
 else 
 	
-  	lvremove /dev/VolGroup00/lv01
-	vgremove VolGroup00
+  	lvremove /dev/VolGroup/lv01
+	vgremove VolGroup
 	m=(`pvscan | grep "PV" | awk '{print $2}'`)
 	ms=${#m[@]}
 	for ((i=0;i<=$ms;i++));
