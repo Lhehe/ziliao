@@ -5,7 +5,7 @@
 yum -y install epel-release
 
 2、安装必要软件包
-yum -y install cobbler cobbler-web dhcp tftp-server pykickstart httpd rsync xinetd debmirror
+yum -y install cobbler cobbler-web dhcp tftp-server pykickstart httpd rsync xinetd debmirror syslinux
 
 3、修改cobbler配置文件/etc/cobbler/settings
 server:tftp服务器地址
