@@ -78,6 +78,8 @@ public = yes
 
 3.将smb服务器上的lin挂载到本地
 [root@linfan ~]# mount -t cifs //192.168.24.248/lin /opt/smb -o username=share,password=1
+(ubuntu 挂载：mount.cifs //192.168.24.248/lin /opt/smb -o username=share）
+
 
 4.进入客户端共享目录创建新文件
 [root@linfan opt]# cd /opt/smb
