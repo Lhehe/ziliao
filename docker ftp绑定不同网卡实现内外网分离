@@ -1,0 +1,76 @@
+docker ftp绑定不同网卡实现内外网分离
+
+如果你的主机有多块网卡，你可能会需要把 Docker 容器绑定到指定网卡，以使容器内的网络请求都经过该指定网卡。不幸的是，Docker并没有直接提供实现该需求的方法。不过，通过 iptables 可以轻松搞定。
+系统:ubuntu 18.04
+内网IP：192.168.31.232
+外网IP：192.168.31.91
+
+先创建一个docker的自建网络，因为docker默认网段是172.17.0.0/16，所以我们建立一个18和19网段。
+
+root@localhost:~# docker network create --subnet=172.18.0.0/16 --opt "com.docker.network.bridge.name"="docker1"  docker1
+root@localhost:~# docker network create --subnet=172.19.0.0/16 --opt "com.docker.network.bridge.name"="docker2" docker2
+复制代码
+
+我们先找到vsftp镜像并且pull下来，为下面做准备
+
+root@localhost:~# docker search vsftp
+root@localhost:~#  docker pull fauria/vsftpd
+复制代码
+
+如果不使用 --opt 参数指定此名称，那你在使用 ifconfig -a 命令查看网络信息时，看到的是类似 br-110eb56a0b22 这样的名字。这显然不怎么好记。
+我们创建了自定义网络之后，便可以使用iptables来指定他的出口，我们先实现入口这个问题。其实也很简单，就是在docker run 的时候在-p参数后加上你所要绑定的网卡。
+
+先创建映射 docker 容器 ftp 文件根目录
+root@localhost:~# mkdir /home/vsftp1
+root@localhost:~# mkdir /home/vsftp2
+我们来实现绑定网卡和绑定自定义网络
+绑定192.168.31.91
+root@localhost:~# docker run -d --network=docker1 --ip=172.18.0.100 \
+-p 192.168.31.91:20:20 -p 192.168.31.91:21:21 -p 192.168.31.91:21100-21110:21100-21110 \
+-e FTP_USER=ftp1 -e FTP_PASS=123456 \
+-e PASV_ADDRESS=192.168.31.91 \
+-e PASV_MIN_PORT=21100 -e PASV_MAX_PORT=21110 \
+-v /home/vsftp1:/home/vsftpd \
+--name vsftpd1 --restart=always fauria/vsftpd
+绑定192.168.31.232
+root@localhost:~# docker run -d --network=docker1 --ip=172.19.0.100 \
+-p 192.168.31.232:20:20 -p 192.168.31.232:21:21 -p 192.168.31.232:21100-21110:21100:21110 \
+-e FTP_USER=ftp2 -e FTP_PASS=123456 \
+-e PASV_ADDRESS=192.168.31.232 \
+-e PASV_MIN_PORT=21100 -e PASV_MAX_PORT=21110 \
+-v /home/vsftp2:/home/vsftpd \
+--name vsftpd2 --restart=always fauria/vsftpd
+复制代码
+
+接下来我们来解决出口问题
+
+把该容器绑定到指定主机网卡
+root@localhost:~# iptables -t nat -I POSTROUTING -p all -s 172.18.0.100 -j SNAT --to-source 192.168.31.91
+root@localhost:~# iptables -t nat -I POSTROUTING -p all -s 172.19.0.100 -j SNAT --to-source 192.168.31.232
+复制代码
+
+查看 iptables 规则
+iptables -t nat -L -n --line-number
+删除 iptables 规则
+iptables -t nat -D POSTROUTING 1
+最后的 1 是要删除的规则序号
+
+删除 Docker 自定义网络
+docker network rm docker1
+复制代码
+
+接下来我们来配置权限以及验证
+
+只能上传不能下载:
+root@localhost:~# docker exec -it vsftp1 /bin/bash
+vi /etc/vsftpd/vsftpd.conf
+chown_uploads=YES
+download_enable＝NO
+只能下载不能上传
+chown_uploads=YES
+write_enable=NO
+复制代码
+
+访问
+ftp://ftp1:123456@192.168.31.91
+ftp://ftp1:123456@192.168.31.91
